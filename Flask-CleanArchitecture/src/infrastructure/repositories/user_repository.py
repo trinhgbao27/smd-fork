@@ -7,19 +7,21 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from config import Config
 from sqlalchemy import Column, Integer, String, DateTime,Boolean
-from infrastructure.databases import Base
+from infrastructure.databases.supabase import get_supabase_client
 
 load_dotenv()
 
-class UserModel(Base):
-    __tablename__ = 'flask_user'
-    __table_args__ = {'extend_existing': True}  # Thêm dòng này
+class User:
 
-    id = Column(Integer, primary_key=True)
+    def __init__(self):
+        self.supabase = get_supabase_client()
+        self.table_name = "users"
+
+        id = Column(Integer, primary_key=True)
     username = Column(String(18), nullable=False)
     password = Column(String(18), nullable=False)
     description = Column(String(255), nullable=True)
     status = Column(Boolean, nullable=False)
     created_at = Column(DateTime)
-    updated_at = Column(DateTime) 
+    updated_at = Column(DateTime)
     

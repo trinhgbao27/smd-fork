@@ -1,6 +1,6 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
-from infrastructure.databases.base import Base
-class AuthFuntionModel(Base):
+from infrastructure.databases.supabase import get_supabase_client
+class AuthFunctionModel(get_supabase_client):
     __tablename__ = 'auth_functions'
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(100), unique=True, nullable=False)
@@ -10,7 +10,7 @@ class AuthFuntionModel(Base):
     updated_at = Column(DateTime)
     
     
-class AuthRoleFunctionModel(Base):
+class AuthRoleFunctionModel(get_supabase_client):
     __tablename__ = 'auth_role_functions'
     id = Column(Integer, primary_key=True, autoincrement=True)
     role_id = Column(Integer, ForeignKey('auth_roles.id'), nullable=False)

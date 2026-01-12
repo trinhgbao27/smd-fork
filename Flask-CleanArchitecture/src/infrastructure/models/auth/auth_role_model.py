@@ -1,13 +1,13 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
-from infrastructure.databases.base import Base
-class AuthRoleModel(Base):
+from infrastructure.databases.supabase import get_supabase_client
+class AuthRoleModel(get_supabase_client):
     __tablename__ = 'auth_roles'
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     name = Column(String(50), unique=True, nullable=False)
     description = Column(String(255))
-    
-class AuthUserRoleModel(Base):
+
+class AuthUserRoleModel(get_supabase_client):
     __tablename__ = 'auth_user_roles'
 
     id = Column(Integer, primary_key=True, autoincrement=True)

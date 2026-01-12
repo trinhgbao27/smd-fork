@@ -1,6 +1,5 @@
 from domain.models.icourse_repository import ICourseRepository
 from domain.models.course import Course
-from infrastructure.databases import Base
 from domain.models.todo import Todo
 from typing import List, Optional
 from dotenv import load_dotenv
@@ -9,12 +8,13 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 from config import Config
 from sqlalchemy import Column, Integer, String, DateTime
-from infrastructure.databases import Base
+from infrastructure.databases.supabase import get_supabase_client
 
 load_dotenv()
 
 class CourseRepository(ICourseRepository):
     def __init__(self):
+        self.supabase = get_supabase_client()
         self._courses = []
         self._id_counter = 1
 
